@@ -1,8 +1,8 @@
 <img src="https://github.com/mail-ru-im/bot-python/blob/master/logo.png" width="100" height="100">
 
-# 🐍 bot-python
+# 🐍 icq-bot-standart
 
-Pure Python interface for Bot API.
+Официальная библиотека к ICQ New Bot API на Python. Перевод: [@nightadmin](https://vk.com/na_official)
 
 # Table of contents
 - [Introduction](#introduction)
