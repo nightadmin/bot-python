@@ -1,20 +1,20 @@
 <img src="https://github.com/mail-ru-im/bot-python/blob/master/logo.png" width="100" height="100">
 
-# 🐍 icq-bot-standart
+# 🐍 standart-icq-bot
 
 Официальная библиотека к ICQ New Bot API на Python. Перевод: [@nightadmin](https://vk.com/na_official)
 
-# Table of contents
-- [Introduction](#introduction)
-- [Getting started](#getting-started)
-- [Installing](#installing)
-- [API description](#api-description)
+# Содержание:
+- [Описание](#introduction)
+- [Начало работы](#getting-started)
+- [Установка](#installing)
+- [Описание API](#api-description)
 
-# Introduction
+# Описание
 
 This library provides complete Bot API 1.0 interface and compatible with Python 2.7, 3.4, 3.5 and 3.6.
 
-# Getting started
+# Начало работы
 
 * Create your own bot by sending the /newbot command to <a href="https://icq.com/people/70001">Metabot</a> and follow the instructions.
     >Note: a bot can only reply after the user has added it to his contact list, or if the user was the first to start a dialogue.
@@ -26,13 +26,13 @@ This library provides complete Bot API 1.0 interface and compatible with Python 
 
 > An example of how to use the framework can be seen in example/test_bot.py 
 
-# Installing
-Install using pip:
+# Установка
+Установите, используя утилиту pip:
 ```bash
-pip install --upgrade mailru-im-bot
+pip3 install --upgrade mailru-im-bot
 ```
 
-Install from sources:
+Или клонируйте с GitHub:
 ```bash
 git clone https://github.com/mail-ru-im/bot-python.git
 cd bot-python
