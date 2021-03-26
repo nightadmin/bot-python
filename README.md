@@ -1,4 +1,4 @@
-<img src="https://github.com/mail-ru-im/bot-python/blob/master/logo.png" width="100" height="100">
+<img src="https://github.com/nightadmin/standart-icq-bot/blob/master/logo.png" width="100" height="100">
 
 # 🐍 standart-icq-bot
 
@@ -24,7 +24,7 @@
     > Пример: Bot(token=TOKEN, name=NAME, is_myteam=True), по умолчанию флаг имеет значение False.
 
 
-> Пример бота, который использует все методы из библиотеки: [/example/test_bot.py](https://github.com/nightadmin/standart-icq-bot/example/test_bot.py) 
+> Пример бота, который использует все методы из библиотеки: [/example/test_bot.py](https://github.com/nightadmin/standart-icq-bot/blob/master/example/test_bot.py) 
 
 # Установка
 Установите, используя утилиту pip:
