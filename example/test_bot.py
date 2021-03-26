@@ -25,15 +25,15 @@ API_URL = "https://api.icq.net/bot/v1"
 
 
 def start_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Hello! Let's start!")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Привет! Давай начнем работу!")
 
 
 def help_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Some message help")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Команда помощи. Чтобы отключить системное уведомление, отправьте Метаботу команду /sethelpenabled => Disabled.")
 
 
 def test_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="User command: {}".format(event.data['text']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Пользователь написал: {}".format(event.data['text']))
 
 
 def unknown_command_cb(bot, event):
@@ -41,20 +41,20 @@ def unknown_command_cb(bot, event):
     (command, command_body) = event.data["text"].partition(" ")[::2]
     bot.send_text(
         chat_id=user,
-        text="Unknown command '{message}' with body '{command_body}' received from '{source}'.".format(
+        text="Неизвестная команда '{message}' с телом '{command_body}' получена от '{source}'.".format(
             source=user, message=command[1:], command_body=command_body
         )
     )
 
 
 def private_command_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Private user command: {}".format(event.data['text']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Пользовательская команда: {}".format(event.data['text']))
 
 
 def new_chat_members_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Welcome to chat! {users}, read the chat rules!".format(
+        text="Добро пожаловать в чат! {users}, прочитайте правила!".format(
             users=", ".join([u['userId'] for u in event.data['newMembers']])
         )
     )
@@ -63,36 +63,37 @@ def new_chat_members_cb(bot, event):
 def left_chat_members_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Say goodbye to {users}".format(
+        text="Пользователь(и) {users} покинули группу.".format(
             users=", ".join([u['userId'] for u in event.data['leftMembers']])
         )
     )
 
 
 def pinned_message_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message {} was pinned".format(event.data['msgId']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение с msgId = {} закреплено.".format(event.data['msgId']))
 
 
 def unpinned_message_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message {} was unpinned".format(event.data['msgId']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение с msgId = {} откреплено.".format(event.data['msgId']))
 
 
 def edited_message_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message {} was edited".format(event.data['msgId']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение с msgId = {} было редактировано.".format(event.data['msgId']))
 
 
 def deleted_message_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message {} was deleted".format(event.data['msgId']))
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение с msgId = {} удалено.".format(event.data['msgId']))
+    print("Этот хэндлер был удален по многочисленным просьбам пользователей. Эта функция никогда не сработает.")
 
 
 def message_with_bot_mention_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message with bot mention was received")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение с упоминанием бота.")
 
 
 def mention_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Users {users} was mentioned".format(
+        text="Пользователи {users} были упомянуты.".format(
             users=", ".join([p['payload']['userId'] for p in event.data['parts']])
         )
     )
@@ -102,19 +103,19 @@ def reply_to_message_cb(bot, event):
     msg_id = event.data['msgId']
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Reply to message: {}".format(msg_id),
+        text="Ответил на сообщение с msgId = {}".format(msg_id),
         reply_msg_id=msg_id
     )
 
 
 def regexp_only_dig_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Only numbers! yes!")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Регулярное выражение: в сообщении только цифры!")
 
 
 def file_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Files with {filed} fileId was received".format(
+        text="Файлы с {filed} fileId отправлены.".format(
             filed=", ".join([p['payload']['fileId'] for p in event.data['parts']])
         )
     )
@@ -123,7 +124,7 @@ def file_cb(bot, event):
 def image_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Images with {filed} fileId was received".format(
+        text="Найдено сообщение с изображением: {filed} fileId!".format(
             filed=", ".join([p['payload']['fileId'] for p in event.data['parts']])
         )
     )
