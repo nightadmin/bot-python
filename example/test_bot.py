@@ -133,7 +133,7 @@ def image_cb(bot, event):
 def video_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Video with {filed} fileId was received".format(
+        text="Найдено сообщение с видео с {filed} fileId!".format(
             filed=", ".join([p['payload']['fileId'] for p in event.data['parts']])
         )
     )
@@ -142,18 +142,18 @@ def video_cb(bot, event):
 def audio_cb(bot, event):
     bot.send_text(
         chat_id=event.data['chat']['chatId'],
-        text="Audio with {filed} fileId was received".format(
+        text="Отправлен аудиофайл с {filed} fileId!".format(
             filed=", ".join([p['payload']['fileId'] for p in event.data['parts']])
         )
     )
 
 
 def sticker_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Your sticker is so funny!")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Твой стикер в сообщении такой смешной!")
 
 
 def url_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Link was received")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Отправлена ссылка!")
 
 
 def forward_cb(bot, event):
@@ -161,21 +161,21 @@ def forward_cb(bot, event):
 
 
 def reply_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Reply was received")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Упоминание отправлено")
 
 
 def message_cb(bot, event):
-    bot.send_text(chat_id=event.data['chat']['chatId'], text="Message was received")
+    bot.send_text(chat_id=event.data['chat']['chatId'], text="Сообщение отправлено!")
 
 
 def pin_cb(bot, event):
-    # Bot should by admin in chat for call this method
+    # бот должен быть админом для выполнения этого действия
     command, command_body = event.data["text"].partition(" ")[::2]
     bot.pin_message(chat_id=event.data['chat']['chatId'], msg_id=command_body)
 
 
 def unpin_cb(bot, event):
-    # Bot should by admin in chat for call this method
+    # бот должен быть админом для выполнения этого действия
     command, command_body = event.data["text"].partition(" ")[::2]
     bot.unpin_message(chat_id=event.data['chat']['chatId'], msg_id=command_body)
 
@@ -184,53 +184,53 @@ def buttons_answer_cb(bot, event):
     if event.data['callbackData'] == "call_back_id_2":
         bot.answer_callback_query(
             query_id=event.data['queryId'],
-            text="Hey! It's a working button 2.",
+            text="Хей! Ты нажал кнопку 2.",
             show_alert=True
         )
 
     elif event.data['callbackData'] == "call_back_id_3":
         bot.answer_callback_query(
             query_id=event.data['queryId'],
-            text="Hey! It's a working button 3.",
+            text="Хей! Ты нажал кнопку 3.",
             show_alert=False
         )
 
 
 def main():
-    # Creating a new bot instance.
+    # создаем инстанс бота
     bot = Bot(token=TOKEN, name=NAME, version=VERSION, api_url_base=API_URL)
 
-    # Registering handlers #
+    # Регистрация хэндлеров #
     # -------------------- #
-    # Handler for start command
+    # Хэндлер для команды /start
     bot.dispatcher.add_handler(StartCommandHandler(callback=start_cb))
 
-    # Handler for help command
+    # Хэндлер для команды /help
     bot.dispatcher.add_handler(HelpCommandHandler(callback=help_cb))
 
-    # Any other user command handler
+    # Хэндлер для пользовательской команды /test
     bot.dispatcher.add_handler(CommandHandler(command="test", callback=test_cb))
 
-    # Handler for feedback command
+    # Хэндлер для фидбэка
     bot.dispatcher.add_handler(FeedbackCommandHandler(target=OWNER))
 
-    # Handler for unknown commands
+    # Хэндлер для неправильной команды
     bot.dispatcher.add_handler(UnknownCommandHandler(callback=unknown_command_cb))
 
-    # Handler for private command with filter by user
+    # Хэндлер для приватной команды с фильтром по отправителю (сработает только при отправке команды разработчиком бота)
     bot.dispatcher.add_handler(CommandHandler(
         command="restart",
         filters=Filter.sender(user_id=OWNER),
         callback=private_command_cb
     ))
 
-    # Handler for add user to chat
+    # Хэндлер для команды "Новый пользователь"
     bot.dispatcher.add_handler(NewChatMembersHandler(callback=new_chat_members_cb))
 
-    # Handler for left user from chat
+    # Хэндлер для команды "Пользователь покинул группу"
     bot.dispatcher.add_handler(LeftChatMembersHandler(callback=left_chat_members_cb))
 
-    # Handler for pinned message
+    # Хэндлер для команды "Сообщение закреплено"
     bot.dispatcher.add_handler(PinnedMessageHandler(callback=pinned_message_cb))
 
     # Handler for unpinned message
