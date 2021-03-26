@@ -25,5 +25,5 @@ while True:
     schedule.run_pending()
     time.sleep(1)
 
-bot.idle()
 bot.startPolling()
+bot.idle()
