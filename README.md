@@ -5,26 +5,26 @@
 Официальная библиотека к ICQ New Bot API на Python. Перевод: [@nightadmin](https://vk.com/na_official)
 
 # Содержание:
-- [Описание](#introduction)
-- [Начало работы](#getting-started)
-- [Установка](#installing)
-- [Описание API](#api-description)
+- [Описание](#описание)
+- [Начало работы](#начало работы)
+- [Установка](#установка)
+- [Описание API](#описание API)
 
 # Описание
 
-This library provides complete Bot API 1.0 interface and compatible with Python 2.7, 3.4, 3.5 and 3.6.
+Эта библиотека является интерфейсом ICQ New Bot API и поддерживается на версиях Python 2.7, 3.4, 3.5 и 3.6.
 
 # Начало работы
 
-* Create your own bot by sending the /newbot command to <a href="https://icq.com/people/70001">Metabot</a> and follow the instructions.
-    >Note: a bot can only reply after the user has added it to his contact list, or if the user was the first to start a dialogue.
-* You can configure the domain that hosts your ICQ server. When instantiating the Bot class, add the address of your domain.
-    > Example: Bot(token=TOKEN, name=NAME, version=VERSION, api_url_base="https://api.icq.net/bot/v1"), by default we use the domain: https://api.icq.net/bot/v1
-* If you are Myteam client, you can add flag "is_myteam=True", when instantiating the Bot class. This will let you use additional chat methods.
-    > Example: Bot(token=TOKEN, name=NAME, is_myteam=True), by default it is False.
+* Создайте собственного бота командой /newbot <a href="https://icq.com/people/70001">Метаботу</a> и следуйте инструкциям бота.
+    >Внимание: Бот может писать только тем людям, у которых он есть в списке контактов, то есть он не может первым начать диалог с пользователем.
+* Вы можете создать свой ICQ-сервер для API, тогда смените адрес хоста на свой при объявлении класса Bot().
+    > Пример: Bot(token=TOKEN, name=NAME, version=VERSION, api_url_base="https://example.com"), стандартный сервер ICQ: https://api.icq.net/bot/v1
+* Если вы клиент корпоративного сервиса Myteam, вы можете включить флаг "is_myteam=True" для получения дополнительных возможностей при объявлении класса Bot().
+    > Пример: Bot(token=TOKEN, name=NAME, is_myteam=True), по умолчанию флаг имеет значение False.
 
 
-> An example of how to use the framework can be seen in example/test_bot.py 
+> Пример бота, который использует все методы из библиотеки: [/example/test_bot.py](https://github.com/nightadmin/standart-icq-bot/example/test_bot.py) 
 
 # Установка
 Установите, используя утилиту pip:
@@ -34,12 +34,12 @@ pip3 install --upgrade mailru-im-bot
 
 Или клонируйте с GitHub:
 ```bash
-git clone https://github.com/mail-ru-im/bot-python.git
-cd bot-python
+git clone https://github.com/nightadmin/standart-icq-bot.git
+cd standart-icq-bot
 python setup.py install
 ```
 
-# API description
+# Описание API
 <ul>
     <li><a href="https://icq.com/botapi/">icq.com/botapi/</a></li>
     <li><a href="https://agent.mail.ru/botapi/">agent.mail.ru/botapi/</a></li>
