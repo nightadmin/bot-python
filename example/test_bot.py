@@ -284,32 +284,32 @@ def main():
     # Хэндлер для команды
     bot.dispatcher.add_handler(CommandHandler(command="pin", callback=pin_cb))
 
-    # Send command like this:
+    # Команда /unpin открепляет сообщение по его msgId:
     # /unpin 6752793278973351456
     # 6752793278973351456 - msgId
-    # Handler for unpin command
+    # Хэндлер для команды
     bot.dispatcher.add_handler(CommandHandler(command="unpin", callback=unpin_cb))
 
-    # Starting a polling thread watching for new events from server. This is a non-blocking call
+    # Запускаем получение событий с сервера ICQ
     # ---------------------------------------------------------------------------------------- #
     bot.start_polling()
 
-    # Call bot methods
+    # Методы, которые можно использовать в библиотеке:
     # -------------- #
-    # Get info about bot
+    # Информация о боте
     bot.self_get()
 
-    # Send message
-    response = bot.send_text(chat_id=OWNER, text="Hello")
+    # Отправка сообщений
+    response = bot.send_text(chat_id=OWNER, text="Привет")
     msg_id = response.json()['msgId']
 
-    # Reply
-    bot.send_text(chat_id=OWNER, text="Reply to 'Hello'", reply_msg_id=msg_id)
+    # Ответ на сообщение
+    bot.send_text(chat_id=OWNER, text="Ответ на 'Привет'", reply_msg_id=msg_id)
 
-    # Forward
-    bot.send_text(chat_id=OWNER, text="Forward 'Hello'", forward_msg_id=msg_id, forward_chat_id=OWNER)
+    # Переслать сообщение
+    bot.send_text(chat_id=OWNER, text="Пересылаю 'Привет'", forward_msg_id=msg_id, forward_chat_id=OWNER)
 
-    # Send binary file
+    # отправка файла
     with io.StringIO() as file:
         file.write(u'x'*100)
         file.name = "file.txt"
@@ -317,16 +317,16 @@ def main():
         response = bot.send_file(chat_id=OWNER, file=file.read(), caption="binary file caption")
         file_id = response.json()['fileId']
 
-    # Get file info
+    # Инофрмация об отправленном файле
     bot.get_file_info(file_id=file_id)
 
-    # Send file by file_id
+    # Повторно отправить файл
     bot.send_file(chat_id=OWNER, file_id=file_id, caption="file_id file caption")
 
-    # Send file by file_id as reply to message
+    # Также можно отправить повторно файл ответом на сообщение
     bot.send_file(chat_id=OWNER, file_id=file_id, caption="file_id file caption", reply_msg_id=msg_id)
 
-    # Forward file by file_id
+    # Переслать файл по его идентификатору
     bot.send_file(
         chat_id=OWNER,
         file_id=file_id,
@@ -335,69 +335,73 @@ def main():
         forward_chat_id=OWNER
     )
 
-    # Send voice file
+    # Отправить TTS файл
     if sys.version_info[0] == 3:
         with io.BytesIO() as file:
-            gTTS('Hello everybody!').write_to_fp(file)
+            gTTS('Перевод выполнен Марком Фоминым в 2021 году.').write_to_fp(file)
             file.name = "hello_voice.mp3"
             file.seek(0)
             response = bot.send_voice(chat_id=OWNER, file=file.read())
             hello_voice_file_id = response.json()['fileId']
 
-        # Send voice by file_id
+        # Отправка файла POST-запросом по его идентификатору
         bot.send_voice(chat_id=OWNER, file_id=hello_voice_file_id)
 
-    # Edit text
-    msg_id = bot.send_text(chat_id=OWNER, text="Message to be edited").json()['msgId']
-    bot.edit_text(chat_id=OWNER, msg_id=msg_id, text="edited text")
+    # Редактирование текста, уже отправленного ботом
+    msg_id = bot.send_text(chat_id=OWNER, text="Это сообщение будет отредактировано").json()['msgId']
+    bot.edit_text(chat_id=OWNER, msg_id=msg_id, text="Все, его уже отредактировали.")
 
-    # Delete message
-    msg_id = bot.send_text(chat_id=OWNER, text="Message to be deleted").json()['msgId']
+    # Удалить сообщение пользователя
+    msg_id = bot.send_text(chat_id=OWNER, text="Сообщение будет удалено.").json()['msgId']
     bot.delete_messages(chat_id=OWNER, msg_id=msg_id)
 
-    # Send typing action
+    # Пусть бот будет печатать в течение 1 секунды
     bot.send_actions(chat_id=OWNER, actions=["typing"])
     sleep(1)
-    # Stop typing
+    # Пусть бот перестанет печатать
     bot.send_actions(chat_id=OWNER, actions=[])
 
-    # Get info about chat
+    # Информация о чате
     bot.get_chat_info(chat_id=TEST_CHAT)
 
-    # Get chat admins
+    # Получить список админов чата
     bot.get_chat_admins(chat_id=TEST_CHAT)
-    # Get chat members
+    # Поулчить список участников чата
     bot.get_chat_members(chat_id=TEST_CHAT)
-    # Get chat blocked users
+    # Получить список удаленных участников
     bot.get_chat_blocked_users(chat_id=TEST_CHAT)
-    # Get chat pending users
+    # Получить список ожидающих подтверждения на вход
     bot.get_chat_pending_users(chat_id=TEST_CHAT)
 
-    # Block user in chat
+    # Заблокировать пользователя в чате
     bot.chat_block_user(chat_id=TEST_CHAT, user_id=TEST_USER, del_last_messages=True)
-    # Unlock user in chat
+    # Разблокировать пользователя в чате
     bot.chat_unblock_user(chat_id=TEST_CHAT, user_id=TEST_USER)
 
-    # Chat resolve pending user or everyone
+    # Принять решение о подтверждении/отклонении заявки на вход в группу
     bot.chat_resolve_pending(chat_id=TEST_CHAT, approve=True, user_id=TEST_USER, everyone=False)
 
-    # Set chat title
-    bot.set_chat_title(chat_id=TEST_CHAT, title="TEST TITLE")
-    # Set chat about
-    bot.set_chat_about(chat_id=TEST_CHAT, about="TEST ABOUT")
-    # Set chat title
-    bot.set_chat_rules(chat_id=TEST_CHAT, rules="TEST RULES")
+    # Установить название чата
+    bot.set_chat_title(chat_id=TEST_CHAT, title="Захват мира")
+    # Установить инофрмацию о группе
+    bot.set_chat_about(chat_id=TEST_CHAT, about="Группа для душевного общения.")
+    # Установить правила группы
+    bot.set_chat_rules(chat_id=TEST_CHAT, rules="Не ругайтесь матом и не обзывайте участников чата!)")
 
-    # Send bot buttons
+    # Отправить сообщение с кнопками
     bot.send_text(chat_id=OWNER,
-                  text="Hello with buttons.",
+                  text="Привет, я сообщение с кнопками!",
                   inline_keyboard_markup="[{}]".format(json.dumps([
-                      {"text": "Action 1", "url": "http://mail.ru"},
-                      {"text": "Action 2", "callbackData": "call_back_id_2"},
-                      {"text": "Action 3", "callbackData": "call_back_id_3"}
+                      {"text": "Кнопка 1", "url": "https://vk.com/na_official/"},
+                      {"text": "Кнопка 2", "callbackData": "call_back_id_2"},
+                      {"text": "Кнопка 3", "callbackData": "call_back_id_3"}
                   ])))
+    '''
+    url - используется для ссылки, не может быть передано одновременно с callbackData;
+    callbackData - используется для обработки нажатия кнопки
+    '''
 
-    # Handler for bot buttons reply.
+    # Хэндлер для обработки нажатия кнопки
     bot.dispatcher.add_handler(BotButtonCommandHandler(callback=buttons_answer_cb))
 
     bot.idle()
