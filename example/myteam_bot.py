@@ -28,4 +28,6 @@ def main():
     bot.dispatcher.add_handler(MessageHandler(callback=message_cb))
     bot.start_polling()
     bot.idle()
-if 
+    
+if __name__ == "__main__":
+    main()
