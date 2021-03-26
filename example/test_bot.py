@@ -233,34 +233,34 @@ def main():
     # Хэндлер для команды "Сообщение закреплено"
     bot.dispatcher.add_handler(PinnedMessageHandler(callback=pinned_message_cb))
 
-    # Handler for unpinned message
+    # Хэндлер для команды "Сообщение откреплено"
     bot.dispatcher.add_handler(UnPinnedMessageHandler(callback=unpinned_message_cb))
 
-    # Handler for edited message
+    # Хэндлер для редактирования сообщения
     bot.dispatcher.add_handler(EditedMessageHandler(callback=edited_message_cb))
 
-    # Handler for deleted message
+    # Хэндлер для удаления сообщения (ОТКЛЮЧЕН, НЕ ИСПОЛЬЗОВАТЬ)
     bot.dispatcher.add_handler(DeletedMessageHandler(callback=deleted_message_cb))
 
-    # Handler for message with bot mention
+    # Хэндлер для упоминания ботом
     bot.dispatcher.add_handler(MessageHandler(
         filters=Filter.message & Filter.mention(user_id=bot.uin),
         callback=message_with_bot_mention_cb
     ))
 
-    # Handler for mention something else
+    # Хэндлер для упоминания пользователем
     bot.dispatcher.add_handler(MessageHandler(
         filters=Filter.mention() & ~Filter.mention(user_id=bot.uin),
         callback=mention_cb
     ))
 
-    # Handler for simple text message without media content
+    # Хэндлер для текста без файлов
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.text, callback=message_cb))
 
-    # Handler with regexp filter
+    # Хэндлер с регулярным выражением: только цифры
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.regexp("^\d*$"), callback=regexp_only_dig_cb))
 
-    # Handler for no media file. For example, text file
+    # Хэндлер для немедийного файла (например, MarkFomin.txt)
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.data, callback=file_cb))
 
     # Handlers for other file types
@@ -268,20 +268,20 @@ def main():
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.video, callback=video_cb))
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.audio, callback=audio_cb))
 
-    # Handler for sticker
+    # Хэндлер для стикера
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.sticker, callback=sticker_cb))
 
-    # Handler for url
+    # Хэндлер для ссылки
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.url & ~Filter.sticker, callback=url_cb))
 
-    # Handlers for forward and reply getting
+    # Хэндлеры для пересылания и ответа на сообщение соответственно
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.forward, callback=forward_cb))
     bot.dispatcher.add_handler(MessageHandler(filters=Filter.reply, callback=reply_cb))
 
-    # Send command like this:
+    # Команда /pin закрепляет сообщение по его msgId:
     # /pin 6752793278973351456
     # 6752793278973351456 - msgId
-    # Handler for pin command
+    # Хэндлер для команды
     bot.dispatcher.add_handler(CommandHandler(command="pin", callback=pin_cb))
 
     # Send command like this:
@@ -402,6 +402,6 @@ def main():
 
     bot.idle()
 
-
+#если мы вышли из всех сопрограмм, то есть находимся в основной программе, то есть весь код уже обработан, то вызываем функцию, которая начинает работу бота
 if __name__ == "__main__":
     main()
