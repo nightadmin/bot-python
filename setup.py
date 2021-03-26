@@ -24,9 +24,9 @@ setup(
     description="Pure Python interface for Bot API. Bot cookbook for Humans.",
     long_description=long_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/mail-ru-im/bot-python",
-    author="ICQ LLC (Mail.Ru Group)",
-    author_email="support@icq.com",
+    url="https://github.com/nightadmin/standart-icq-bot",
+    author="ICQ LLC (Mail.Ru Group), translated by Mark Fomin",
+    author_email="support@icq.com, luring.uliksir@gmail.com",
     license="MIT",
     classifiers=[
         "Intended Audience :: Developers",
